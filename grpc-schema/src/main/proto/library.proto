@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cl.javdev.models";
+import "book.proto";
+package models;
+
+message Library{
+  string name = 1;
+  // collection
+  repeated Book book_list = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cl.javdev.models";
+
+package models;
+
+enum TypeCheese {
+  BLUE = 0;
+  MOZZARELLA = 1;
+  CHEDDAR = 2;
+  GOUDA = 3;
+}

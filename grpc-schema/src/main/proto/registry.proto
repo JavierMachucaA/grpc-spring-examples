@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cl.javdev.models";
+import "user.proto";
+package models;
+
+message Registry {
+  map<int32,User> user = 1;
+}
