@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package model;
+
+option java_multiple_files = true;
+option java_package = "cl.javdev.model";
+
+
+enum ExecutionTypeEnum {
+    READER = 0;
+    NORMALIZER = 1;
+    PURGE_RSS = 2;
+    PURGE_O = 3;
+    UPDATE_USER = 4;
+    READ_ASPECT = 5;
+    MOVE_S3 = 6;
+}
+
+message ProcessDetail {
+  int64 id_process = 1;
+  int64 num_files = 2;
+  string error = 3;
+  int32 id_company = 4;
+  google.protobuf.Timestamp total_time_execution = 5;
+}
+
+
+message ProcessByCompany {
+  int64 id = 1;
+  int64 total_files = 2;
+  int32 id_company = 3;
+  google.protobuf.Timestamp total_time_execution = 4;
+  string error = 5;
+  repeated ProcessDetail process_detail_list = 6;
+}
+
+/**
+  id_execution: hasbasedontime
+  ExecutionTypeEnum: kind of execution
+  Map<Long, Process> process_list : list of process timing, files to process, total process for company, determinate different errors.
+ */
+message ExecutionRequest {
+  string id_execution = 1;
+  ExecutionTypeEnum execution_type_enum = 2;
+  map<int64,ProcessByCompany> process_company_map = 3;
+  google.protobuf.Timestamp total_time_execution = 4;
+
+}
+
+message ExecutionResponse{
+  int32 id = 1;
+}
+
+service ExecutionService {
+  rpc sendExecutionStatus(ExecutionRequest) returns (ExecutionResponse);
+}
+
+
